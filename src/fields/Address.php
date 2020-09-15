@@ -18,6 +18,7 @@ use craft\base\PreviewableFieldInterface;
 use craft\elements\db\ElementQueryInterface;
 use craft\helpers\StringHelper;
 
+use doublesecretagency\smartmap\models\AddressGqlType;
 use doublesecretagency\smartmap\SmartMap;
 use doublesecretagency\smartmap\enums\MeasurementUnit;
 use doublesecretagency\smartmap\web\assets\FieldInputAssets;
@@ -259,6 +260,14 @@ class Address extends Field implements PreviewableFieldInterface
         if (!($validLat && $validLng)) {
             $element->addError($this->handle, Craft::t('smart-map', 'If coordinates are specified, they must be numbers.'));
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getContentGqlType()
+    {
+        return AddressGqlType::getType();
     }
 
 }
