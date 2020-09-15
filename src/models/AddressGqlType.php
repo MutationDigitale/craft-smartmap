@@ -4,7 +4,7 @@ namespace doublesecretagency\smartmap\models;
 
 use craft\gql\GqlEntityRegistry;
 use fruitstudios\linkit\generators\LinkitType;
-use GraphQL\Type\Definition\InterfaceType;
+use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 
 /**
@@ -32,7 +32,7 @@ class AddressGqlType
 
         $type = GqlEntityRegistry::createEntity(
             self::class,
-            new InterfaceType(
+            new ObjectType(
                 [
                     'name' => static::getName(),
                     'fields' => self::class . '::getFieldDefinitions',
@@ -49,13 +49,41 @@ class AddressGqlType
     public static function getFieldDefinitions(): array
     {
         return [
+            'street1' => [
+                'name' => 'street1',
+                'type' => Type::string()
+            ],
+            'street2' => [
+                'name' => 'street2',
+                'type' => Type::string()
+            ],
+            'city' => [
+                'name' => 'city',
+                'type' => Type::string()
+            ],
+            'state' => [
+                'name' => 'state',
+                'type' => Type::string()
+            ],
+            'zip' => [
+                'name' => 'zip',
+                'type' => Type::string()
+            ],
+            'country' => [
+                'name' => 'country',
+                'type' => Type::string()
+            ],
             'lat' => [
                 'name' => 'lat',
-                'type' => Type::string()
+                'type' => Type::float()
             ],
             'lng' => [
                 'name' => 'lng',
-                'type' => Type::string()
+                'type' => Type::float()
+            ],
+            'distance' => [
+                'name' => 'distance',
+                'type' => Type::float()
             ]
         ];
     }
