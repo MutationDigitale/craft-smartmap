@@ -12,7 +12,10 @@
 namespace doublesecretagency\smartmap;
 
 use craft\base\Element;
+use craft\events\RegisterGqlTypesEvent;
+use craft\services\Gql;
 use doublesecretagency\smartmap\exports\AddressExport;
+use doublesecretagency\smartmap\models\AddressGqlType;
 use yii\base\Event;
 
 use Craft;
@@ -123,6 +126,15 @@ class SmartMap extends Plugin
                     $url = UrlHelper::cpUrl('smart-map/welcome');
                     Craft::$app->getResponse()->redirect($url)->send();
                 }
+            }
+        );
+        
+        // Register GraphQL type
+        Event::on(
+            Gql::class,
+            Gql::EVENT_REGISTER_GQL_TYPES,
+            function (RegisterGqlTypesEvent $event) {
+                $event->types[] = AddressGqlType::class;
             }
         );
 
